@@ -1,0 +1,24 @@
+code .github\workflows\publish.yml
+```
+
+Paste the publish content exactly as written above.
+
+---
+
+## Add secrets to GitHub
+
+After pushing, go to your GitHub repo and add these secrets:
+```
+GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+
+Secret 1:
+  Name:  PYPI_API_TOKEN
+  Value: pypi-xxxx  (from PyPI account settings)
+
+Secret 2:
+  Name:  GROQ_API_KEY
+  Value: gsk_xxxx   (your Groq key)
+
+Secret 3:
+  Name:  GEMINI_API_KEY
+  Value: AIzaSy_xxx (your Gemini key)
