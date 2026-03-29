@@ -231,7 +231,10 @@ contextlens/
 - [x] Phase 7 — CLI + production polish
 - [ ] Phase 8 — Demo agent
 - [ ] Phase 9 — GitHub deployment
+
 - [ ] Phase 10 — Streamlit dashboard
+=======
+
 
 ---
 
@@ -244,6 +247,7 @@ make test   # run full test suite
 make lint   # ruff + mypy
 make format # black
 ```
+
 
 ---
 
@@ -281,3 +285,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+=======
+
