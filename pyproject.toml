@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contextlens"
+version = "0.1.0"
+description = "Context engineering & evaluation toolkit for deep AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Sam", email = "sam@example.com" }
+]
+keywords = ["ai", "agents", "context-engineering", "llm", "evaluation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "groq>=0.9.0",
+    "google-generativeai>=0.7.0",
+    "openai>=1.0.0",          # NVIDIA uses OpenAI-compatible API
+    "pydantic>=2.0.0",        # Data validation — production standard
+    "loguru>=0.7.0",          # Structured logging — better than stdlib
+    "python-dotenv>=1.0.0",   # .env loading
+    "tiktoken>=0.7.0",        # Token counting (OpenAI tokenizer)
+    "rich>=13.0.0",           # Beautiful terminal output
+    "typer>=0.12.0",          # CLI framework — cleaner than argparse
+    "scikit-learn>=1.5.0",    # For cosine similarity in evaluator
+    "numpy>=1.26.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+dashboard = [
+    "streamlit>=1.35.0",
+    "plotly>=5.22.0",
+]
+
+[project.scripts]
+contextlens = "contextlens.cli.commands:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["contextlens"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
