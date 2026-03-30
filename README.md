@@ -2,7 +2,7 @@
 
 > The observability layer your LLM stack is missing.
 
-[![PyPI version](https://badge.fury.io/py/contextlens.svg)](https://pypi.org/project/contextlens-ai/0.1.0/)
+[![PyPI version](https://badge.fury.io/py/contextlens-ai.svg)](https://pypi.org/project/contextlens-ai/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
