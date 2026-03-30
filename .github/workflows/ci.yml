@@ -29,30 +29,52 @@ jobs:
           pip install -e ".[dev]"
           pip install pydantic-settings
 
-      - name: Check imports work
+      - name: Verify package imports
         run: |
-          python -c "from contextlens.core.logger import ContextLogger, ContextEntry, RetrievedDoc; print('logger OK')"
-          python -c "from contextlens.core.evaluator import ContextEvaluator; print('evaluator OK')"
-          python -c "from contextlens.core.monitor import TokenMonitor; print('monitor OK')"
-          python -c "from contextlens.core.optimizer import ContextOptimizer; print('optimizer OK')"
-          python -c "from contextlens.providers import PROVIDER_REGISTRY; print('providers OK')"
+          python -c "
+          import os
+          os.environ['GROQ_API_KEY'] = 'dummy'
+          os.environ['GEMINI_API_KEY'] = 'dummy'
+          os.environ['NVIDIA_API_KEY'] = 'dummy'
+          os.environ['CONTEXTLENS_DEFAULT_PROVIDER'] = 'groq'
+          os.environ['CONTEXTLENS_LOG_DIR'] = '/tmp/logs'
+          from contextlens.core.logger import ContextLogger, ContextEntry, RetrievedDoc
+          from contextlens.core.evaluator import ContextEvaluator
+          from contextlens.core.monitor import TokenMonitor
+          from contextlens.core.optimizer import ContextOptimizer
+          from contextlens.providers.base import ModelResponse, ProviderError
+          from contextlens.providers import PROVIDER_REGISTRY
+          print('All imports OK')
+          print('Providers:', list(PROVIDER_REGISTRY.keys()))
+          "
+
+      - name: Run tests with full output
+        run: |
+          pytest tests/test_logger.py \
+                 tests/test_evaluator.py \
+                 tests/test_monitor.py \
+                 tests/test_optimizer.py \
+                 tests/test_models.py \
+                 -v --tb=long -s 2>&1
         env:
           GROQ_API_KEY: dummy-key
           GEMINI_API_KEY: dummy-key
           NVIDIA_API_KEY: dummy-key
           CONTEXTLENS_DEFAULT_PROVIDER: groq
-          CONTEXTLENS_LOG_DIR: /tmp/logs
+          CONTEXTLENS_LOG_DIR: /tmp/contextlens_logs
+        continue-on-error: true    # ← shows full output even on failure
 
-      - name: Lint
-        run: ruff check contextlens/ --ignore E501,E402
-        continue-on-error: true
-
-      - name: Run tests
+      - name: Show which tests failed
         run: |
-          pytest tests/test_logger.py tests/test_evaluator.py tests/test_monitor.py tests/test_optimizer.py tests/test_models.py -v --tb=long
+          pytest tests/test_logger.py \
+                 tests/test_evaluator.py \
+                 tests/test_monitor.py \
+                 tests/test_optimizer.py \
+                 tests/test_models.py \
+                 --tb=line -q 2>&1
         env:
           GROQ_API_KEY: dummy-key
           GEMINI_API_KEY: dummy-key
           NVIDIA_API_KEY: dummy-key
           CONTEXTLENS_DEFAULT_PROVIDER: groq
-          CONTEXTLENS_LOG_DIR: /tmp/logs
+          CONTEXTLENS_LOG_DIR: /tmp/contextlens_logs
