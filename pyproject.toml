@@ -25,14 +25,15 @@ classifiers = [
 dependencies = [
     "groq>=0.9.0",
     "google-generativeai>=0.7.0",
-    "openai>=1.0.0",          # NVIDIA uses OpenAI-compatible API
-    "pydantic>=2.0.0",        # Data validation — production standard
-    "loguru>=0.7.0",          # Structured logging — better than stdlib
-    "python-dotenv>=1.0.0",   # .env loading
-    "tiktoken>=0.7.0",        # Token counting (OpenAI tokenizer)
-    "rich>=13.0.0",           # Beautiful terminal output
-    "typer>=0.12.0",          # CLI framework — cleaner than argparse
-    "scikit-learn>=1.5.0",    # For cosine similarity in evaluator
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "loguru>=0.7.0",
+    "python-dotenv>=1.0.0",
+    "tiktoken>=0.7.0",
+    "rich>=13.0.0",
+    "typer>=0.12.0",
+    "scikit-learn>=1.5.0",
     "numpy>=1.26.0",
 ]
 
