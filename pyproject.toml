@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "contextlens"
+name = "contextlens-ai"
 version = "0.1.0"
 description = "Context engineering & evaluation toolkit for deep AI agents"
 readme = "README.md"
