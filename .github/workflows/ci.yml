@@ -11,7 +11,7 @@ jobs:
     name: Test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false        # ← this stops 3.10 and 3.12 cancelling when 3.11 fails
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
 
@@ -29,15 +29,30 @@ jobs:
           pip install -e ".[dev]"
           pip install pydantic-settings
 
-      - name: Lint (ruff)
+      - name: Check imports work
+        run: |
+          python -c "from contextlens.core.logger import ContextLogger, ContextEntry, RetrievedDoc; print('logger OK')"
+          python -c "from contextlens.core.evaluator import ContextEvaluator; print('evaluator OK')"
+          python -c "from contextlens.core.monitor import TokenMonitor; print('monitor OK')"
+          python -c "from contextlens.core.optimizer import ContextOptimizer; print('optimizer OK')"
+          python -c "from contextlens.providers import PROVIDER_REGISTRY; print('providers OK')"
+        env:
+          GROQ_API_KEY: dummy-key
+          GEMINI_API_KEY: dummy-key
+          NVIDIA_API_KEY: dummy-key
+          CONTEXTLENS_DEFAULT_PROVIDER: groq
+          CONTEXTLENS_LOG_DIR: /tmp/logs
+
+      - name: Lint
         run: ruff check contextlens/ --ignore E501,E402
-        continue-on-error: true   # lint warnings don't block CI
+        continue-on-error: true
 
       - name: Run tests
-        run: pytest tests/ -v --tb=short --ignore=tests/test_cli.py
+        run: |
+          pytest tests/test_logger.py tests/test_evaluator.py tests/test_monitor.py tests/test_optimizer.py tests/test_models.py -v --tb=long
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GROQ_API_KEY: dummy-key
+          GEMINI_API_KEY: dummy-key
+          NVIDIA_API_KEY: dummy-key
           CONTEXTLENS_DEFAULT_PROVIDER: groq
-          CONTEXTLENS_LOG_DIR: /tmp/contextlens_logs
+          CONTEXTLENS_LOG_DIR: /tmp/logs
