@@ -28,6 +28,7 @@ jobs:
           pip install --upgrade pip
           pip install -e ".[dev]"
           pip install pydantic-settings
+          pip install google-generativeai
 
       - name: Verify package imports
         run: |
