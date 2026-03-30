@@ -1,15 +1,3 @@
-code .github\workflows\publish.yml
-```
-
-Paste the publish content exactly as written above.
-
----
-
-## Add secrets to GitHub
-
-After pushing, go to your GitHub repo and add these secrets:
-```
-GitHub repo → Settings → Secrets and variables → Actions → New repository secret
 
 Secret 1:
   Name:  PYPI_API_TOKEN
