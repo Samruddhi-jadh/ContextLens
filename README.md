@@ -83,7 +83,7 @@ Developer prompt
 ## Installation
 
 ```bash
-pip install contextlens
+pip install contextlens-ai
 ```
 
 From source:
