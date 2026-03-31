@@ -79,3 +79,4 @@ jobs:
           NVIDIA_API_KEY: dummy-key
           CONTEXTLENS_DEFAULT_PROVIDER: groq
           CONTEXTLENS_LOG_DIR: /tmp/contextlens_logs
+          

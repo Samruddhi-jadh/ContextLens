@@ -39,7 +39,6 @@ class GeminiProvider(BaseProvider):
 
     def __init__(self, api_key: str | None = None):
     try:
-        # Try new SDK first (google-genai)
         import google.generativeai as genai
         self._genai = genai
         self._sdk_version = "legacy"
@@ -138,7 +137,6 @@ class GeminiProvider(BaseProvider):
         except Exception as e:
             raise ProviderError("gemini", str(e), original=e) from e
 
-        # Token extraction (Gemini returns usage_metadata)
         usage = getattr(response, "usage_metadata", None)
         input_tokens = getattr(usage, "prompt_token_count", 0) or 0
         output_tokens = getattr(usage, "candidates_token_count", 0) or 0

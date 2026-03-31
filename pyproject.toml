@@ -12,6 +12,7 @@ license = { text = "MIT" }
 authors = [
     { name = "Samruddhi", email = "aiengineer12@gmail.com" }
 ]
+
 keywords = ["ai", "agents", "context-engineering", "llm", "evaluation"]
 classifiers = [
     "Development Status :: 3 - Alpha",
