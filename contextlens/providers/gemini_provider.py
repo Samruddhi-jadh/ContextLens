@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import time
 from typing import Any
-from google import genai
+import google.generativeai as genai
 
 from loguru import logger
 
@@ -39,7 +39,6 @@ class GeminiProvider(BaseProvider):
 
     def __init__(self, api_key: str | None = None):
         try:
-            import google.generativeai as genai
             self._genai = genai
             self._sdk_version = "legacy"
         except ImportError:
