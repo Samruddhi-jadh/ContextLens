@@ -38,24 +38,24 @@ class GeminiProvider(BaseProvider):
     """
 
     def __init__(self, api_key: str | None = None):
-    try:
-        import google.generativeai as genai
-        self._genai = genai
-        self._sdk_version = "legacy"
-    except ImportError:
-        raise ImportError(
-            "google-generativeai not found. Run: pip install google-generativeai"
-        )
+        try:
+            import google.generativeai as genai
+            self._genai = genai
+            self._sdk_version = "legacy"
+        except ImportError:
+            raise ImportError(
+                "google-generativeai not found. Run: pip install google-generativeai"
+            )
 
-    key = api_key or config.gemini_api_key
-    if not key:
-        raise ProviderError(
-            "gemini",
-            "GEMINI_API_KEY not set. Add it to your .env file."
-        )
+        key = api_key or config.gemini_api_key
+        if not key:
+            raise ProviderError(
+                "gemini",
+                "GEMINI_API_KEY not set. Add it to your .env file."
+            )
 
-    self._genai.configure(api_key=key)
-    logger.debug("GeminiProvider initialized.")
+        self._genai.configure(api_key=key)
+        logger.debug("GeminiProvider initialized.")
 
     @property
     def provider_name(self) -> str:
